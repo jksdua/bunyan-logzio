@@ -12,7 +12,7 @@
     "log",
     "logzio"
   ],
-  "author": "Scott Mebberson",
+  "author": "Jaap Karan Singh",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jksdua/bunyan-logzio/issues"
@@ -20,9 +20,9 @@
   "homepage": "https://github.com/jksdua/bunyan-logzio",
   "dependencies": {},
   "devDependencies": {
-    "bunyan": "~0.22.1",
+    "bunyan": "^1.5.1",
     "logzio-nodejs": "^0.3.6",
-    "mocha": "~1.18.0",
-    "should": "~3.1.3"
+    "mocha": "^2.3.4",
+    "should": "^8.0.0"
   }
 }
