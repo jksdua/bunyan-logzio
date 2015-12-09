@@ -1,25 +1,25 @@
 var should = require('should'),
 	bunyan = require('bunyan'),
-	Bunyan2Loggly = require('../').Bunyan2Loggly,
+	logzio = require('logzio-nodejs'),
+	Bunyan2Logzio = require('../').Bunyan2Logzio,
 	helpers = require('./helpers'),
 	config = helpers.loadConfig();
 
-describe('bunyan-loggly', function () {
+var logzioLogger = logzio.createLogger(config);
 
-	it('should throw if token and subdomain aren\'t provided', function () {
+describe('bunyan-logzio', function () {
+
+	it('should throw if logger isn\'t provided', function () {
 
 		(function () {
-			new Bunyan2Loggly({})
+			new Bunyan2Logzio();
 		}).should.throw();
 
 	});
 
 	it('should throw if not used as a raw stream', function () {
 
-		var logger = new Bunyan2Loggly({
-			token: config.token,
-			subdomain: config.subdomain
-		});
+		var logger = new Bunyan2Logzio(logzioLogger);
 
 		(function () {
 			logger.write(JSON.stringify({}))
@@ -35,17 +35,9 @@ describe('bunyan-loggly', function () {
 
 		before(function () {
 
-			logger = new Bunyan2Loggly({
-				name: 'bunyan-loggly',
-				token: config.token,
-				subdomain: config.subdomain
-			});
+			logger = new Bunyan2Logzio(logzioLogger);
 
-			loggerBufferFive = new Bunyan2Loggly({
-				name: 'bunyan-loggly',
-				token: config.token,
-				subdomain: config.subdomain
-			}, 5);
+			loggerBufferFive = new Bunyan2Logzio(logzioLogger, { buffer: 5 });
 
 			log = {
 				time: new Date()

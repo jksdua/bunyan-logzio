@@ -1,5 +1,5 @@
 {
-	"name": "bunyan-loggly-test",
+	"protocol": "https",
 	"token": "token",
-	"subdomain": "subdomain"
+	"type": "test"
 }

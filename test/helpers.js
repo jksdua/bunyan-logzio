@@ -6,9 +6,7 @@ var helpers = exports;
 
 helpers.validConfig = function (config) {
 
-	return config
-		&& config.token !== 'token'
-		&& config.subdomain !== 'subdomain';
+	return config && config.token !== 'token';
 
 };
 

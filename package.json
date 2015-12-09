@@ -1,29 +1,28 @@
 {
-  "name": "bunyan-loggly",
-  "version": "0.0.6",
-  "description": "A bunyan stream to transport logs to loggly",
+  "name": "bunyan-logzio",
+  "version": "0.0.1",
+  "description": "A bunyan stream to transport logs to logzio",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/smebberson/bunyan-loggly.git"
+    "url": "https://github.com/jksdua/bunyan-logzio.git"
   },
   "keywords": [
     "bunyan",
     "log",
-    "loggly"
+    "logzio"
   ],
   "author": "Scott Mebberson",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/smebberson/bunyan-loggly/issues"
+    "url": "https://github.com/jksdua/bunyan-logzio/issues"
   },
-  "homepage": "https://github.com/smebberson/bunyan-loggly",
-  "dependencies": {
-    "loggly": "~1.0.3"
-  },
+  "homepage": "https://github.com/jksdua/bunyan-logzio",
+  "dependencies": {},
   "devDependencies": {
+    "bunyan": "~0.22.1",
+    "logzio-nodejs": "^0.3.6",
     "mocha": "~1.18.0",
-    "should": "~3.1.3",
-    "bunyan": "~0.22.1"
+    "should": "~3.1.3"
   }
 }

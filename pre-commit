@@ -19,7 +19,7 @@ var loadConfig = function () {
 		var config = require('../../test/test-config.json');
 
 		if (!validConfig(config)) {
-			util.puts('\nConfig file test-config.json must be return to the default (i.e. remove your specific loggly values)');
+			util.puts('\nConfig file test-config.json must be return to the default (i.e. remove your specific logzio values)');
 			process.exit(1);
 		}
 

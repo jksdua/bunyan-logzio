@@ -1,25 +1,22 @@
-bunyan-loggly
+bunyan-logzio
 =============
 
-A bunyan stream to send logs through to loggly.
+A bunyan stream to send logs through to logzio.
 
 ## Configuration
 
-bunyan-loggly uses node-loggly under the hood. As such, when configuring bunyan-loggly as a stream for bunyan, you need to pass in the standard and required node-loggly configuration object.
+When configuring bunyan-logzio as a stream for bunyan, you need to pass in a logzio logger.
 
 For example:
 
 ```javascript
-{
-	token: "your-really-long-input-token",
-	subdomain: "your-subdomain",
-	auth: {
-    	username: "your-username",
-    	password: "your-password"
-	}
-}
+var logzioLogger = logzio.createLogger({
+	protocol: 'https',
+	token: config.get('logzio.token'),
+	type: config.get('logzio.type.events')
+});
 ```
-> Please note: auth values are NOT required to simply send logs through to loggly.
+> Please note: auth values are NOT required to simply send logs through to logzio.
 
 ## Usage
 
@@ -27,19 +24,16 @@ This is a basic usage example.
 
 ```javascript
 var bunyan = require('bunyan'),
-	Bunyan2Loggly = require('bunyan-loggly').Bunyan2Loggly,
+	Bunyan2Logzio = require('bunyan-logzio').Bunyan2Logzio,
 	logger;
 
 // create the logger
 logger = bunyan.createLogger({
-	name: 'logglylog',
+	name: 'logziolog',
 	streams: [
 		{
 			type: 'raw',
-			stream: new Bunyan2Loggly({
-				token: 'your-account-token',
-				subdomain: 'your-sub-domain'
-			})
+			stream: new Bunyan2Logzio(logzioLogger)
 		}
 	]
 });
@@ -47,17 +41,17 @@ logger = bunyan.createLogger({
 logger.info({});
 ```
 
-> Please note: you MUST define `type: 'raw'` as bunyan-loggly expects to recieve objects so that certain values can be changed as required by loggly (i.e. time to timestamp).
+> Please note: you MUST define `type: 'raw'` as bunyan-logzio expects to recieve objects so that certain values can be changed as required by logzio (i.e. time to timestamp).
 
 ### Express logging
 
-This is an example of using bunyan-loggly to store express.js request logs.
+This is an example of using bunyan-logzio to store express.js request logs.
 
 ```javascript
 var path = require('path'),
 	bunyan = require('bunyan'),
 	serializerRequest = require('../lib/serializer-request'),
-	Bunyan2Loggly = require('bunyan-loggly').Bunyan2Loggly,
+	Bunyan2Logzio = require('bunyan-logzio').Bunyan2Logzio,
 	request;
 
 // create the logger
@@ -67,10 +61,7 @@ request = bunyan.createLogger({
 	streams: [
 		{
 			type: 'raw',
-			stream: new Bunyan2Loggly({
-				token: 'your-account-token',
-				subdomain: 'your-sub-domain'
-			})
+			stream: new Bunyan2Logzio(logzioLogger)
 		}
 	]
 });
@@ -96,43 +87,33 @@ module.exports = function () {
 
 ## Buffering
 
-bunyan-loggly supports basic buffering and when setup, will only send your logs through to loggly on every x logs. To setup buffering, just pass an integer as the second parameter when creating a new instance of Bunyan2Loggly:
+bunyan-logzio supports basic buffering and when setup, will only send your logs through to logzio on every x logs. To setup buffering, just pass an integer as the second parameter when creating a new instance of Bunyan2Logzio:
 
 ```javascript
 var bunyan = require('bunyan'),
-	Bunyan2Loggly = require('bunyan-loggly').Bunyan2Loggly,
+	Bunyan2Logzio = require('bunyan-logzio').Bunyan2Logzio,
 	logger;
 
 // create the logger
 logger = bunyan.createLogger({
-	name: 'logglylog',
+	name: 'logziolog',
 	streams: [
 		{
 			type: 'raw',
-			stream: new Bunyan2Loggly({
-				token: 'your-account-token',
-				subdomain: 'your-sub-domain'
-			}, 5)
+			stream: new Bunyan2Logzio(logzioLogger, { buffer: 5 })
 		}
 	]
 });
 
-logger.info({});	// won't send to loggly
-logger.info({});	// won't send to loggly
-logger.info({});	// won't send to loggly
-logger.info({});	// won't send to loggly
-logger.info({});	// will send to loggly
-logger.info({});	// won't send to loggly
+logger.info({});	// won't send to logzio
+logger.info({});	// won't send to logzio
+logger.info({});	// won't send to logzio
+logger.info({});	// won't send to logzio
+logger.info({});	// will send to logzio
+logger.info({});	// won't send to logzio
 ```
 
 Changes
 -------
 
-Most recent change, v0.0.4.
-
-- bunyan-loggly now requires to be setup as a [raw stream][rawstream]
-
-[You can read about all changes.][bunyanlogglyhistory]
-
-[rawstream]: https://github.com/trentm/node-bunyan#stream-type-raw "Bunyan raw stream"
-[bunyanlogglyhistory]: https://github.com/smebberson/bunyan-loggly/blob/master/History.md "bunyan-loggly history"
+[bunyanlogziohistory]: https://github.com/jksdua/bunyan-logzio/blob/master/History.md "bunyan-logzio history"
