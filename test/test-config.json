@@ -1,5 +1,8 @@
 {
 	"protocol": "https",
 	"token": "token",
-	"type": "test"
+	"type": "test",
+	"bufferSize": 1,
+	"sendIntervalMs": 10,
+	"debug": true
 }

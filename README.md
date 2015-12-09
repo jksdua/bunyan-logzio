@@ -85,34 +85,6 @@ module.exports = function () {
 }
 ```
 
-## Buffering
-
-bunyan-logzio supports basic buffering and when setup, will only send your logs through to logzio on every x logs. To setup buffering, just pass an integer as the second parameter when creating a new instance of Bunyan2Logzio:
-
-```javascript
-var bunyan = require('bunyan'),
-	Bunyan2Logzio = require('bunyan-logzio').Bunyan2Logzio,
-	logger;
-
-// create the logger
-logger = bunyan.createLogger({
-	name: 'logziolog',
-	streams: [
-		{
-			type: 'raw',
-			stream: new Bunyan2Logzio(logzioLogger, { buffer: 5 })
-		}
-	]
-});
-
-logger.info({});	// won't send to logzio
-logger.info({});	// won't send to logzio
-logger.info({});	// won't send to logzio
-logger.info({});	// won't send to logzio
-logger.info({});	// will send to logzio
-logger.info({});	// won't send to logzio
-```
-
 Changes
 -------
 

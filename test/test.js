@@ -27,53 +27,17 @@ describe('bunyan-logzio', function () {
 
 	});
 
-	describe('when using the buffer', function () {
+	it('should send logs', function (done) {
 
-		var logger,
-			loggerBufferFive,
-			log;
+		// give time to flush logs to remote server for manual checking
+		this.timeout(5010);
+		setTimeout(done, 5000);
 
-		before(function () {
+		var logger = new Bunyan2Logzio(logzioLogger);
 
-			logger = new Bunyan2Logzio(logzioLogger);
+		var log = { time: new Date() };
+		logger.write(log);
 
-			loggerBufferFive = new Bunyan2Logzio(logzioLogger, { buffer: 5 });
-
-			log = {
-				time: new Date()
-			};
-
-		});
-
-		it('should default to sending logs upon every write', function () {
-
-			logger._buffer.should.have.lengthOf(0);
-			logger.write(log);
-			logger._buffer.should.have.lengthOf(0);
-
-		});
-
-		it('should allow buffering', function () {
-
-			loggerBufferFive._buffer.should.have.lengthOf(0);
-
-			loggerBufferFive.write(log);
-			loggerBufferFive._buffer.should.have.lengthOf(1);
-
-			loggerBufferFive.write(log);
-			loggerBufferFive._buffer.should.have.lengthOf(2);
-
-			loggerBufferFive.write(log);
-			loggerBufferFive._buffer.should.have.lengthOf(3);
-
-			loggerBufferFive.write(log);
-			loggerBufferFive._buffer.should.have.lengthOf(4);
-
-			loggerBufferFive.write(log);
-			loggerBufferFive._buffer.should.have.lengthOf(0);
-
-		})
-
-	})
+	});
 
 });
