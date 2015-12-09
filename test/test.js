@@ -33,10 +33,14 @@ describe('bunyan-logzio', function () {
 		this.timeout(5010);
 		setTimeout(done, 5000);
 
-		var logger = new Bunyan2Logzio(logzioLogger);
+		var bunyanLogzio = new Bunyan2Logzio(logzioLogger);
+		var logger = bunyan.createLogger({
+			name: 'test',
+			streams: [bunyanLogzio]
+		});
 
 		var log = { time: new Date() };
-		logger.write(log);
+		logger.info(log);
 
 	});
 
