@@ -3,6 +3,13 @@ bunyan-logzio changes
 
 Documentation of all changes to bunyan-logzio.
 
+v0.0.3
+------
+
+- updated to bunyan 1.x
+- updated other dependencies
+
+
 v0.0.2
 ------
 
