@@ -18,10 +18,11 @@
     "url": "https://github.com/jksdua/bunyan-logzio/issues"
   },
   "homepage": "https://github.com/jksdua/bunyan-logzio",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "bunyan": "^1.5.1",
-    "logzio-nodejs": "^0.3.6",
+    "logzio-nodejs": "^0.3.6"
+  },
+  "devDependencies": {
     "mocha": "^2.3.4",
     "should": "^8.0.0"
   }
